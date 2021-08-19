@@ -1,4 +1,4 @@
-#include "Readinput.h"
+#include "inc/Readinput.h"
 using namespace std;
 
 // function for reading line sizes from document

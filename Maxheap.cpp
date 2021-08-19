@@ -1,4 +1,4 @@
-#include "Maxheap.h"
+#include "inc/Maxheap.h"
 using namespace std;
 
 Maxheap::Maxheap(int k) : maxnumofscores(k), currnumofscores(0)

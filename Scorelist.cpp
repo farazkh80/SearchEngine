@@ -1,4 +1,4 @@
-#include "Scorelist.h"
+#include "inc/Scorelist.h"
 using namespace std;
 
 Scorelist::~Scorelist()

@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "inc/Map.h"
 using namespace std;
 Mymap::Mymap(int size,int buffersize):size(size),buffersize(buffersize)
 {

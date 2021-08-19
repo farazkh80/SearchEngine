@@ -6,7 +6,7 @@
 #include "Maxheap.h"
 #include "Map.h"
 #include <cmath>
-#include "./sys/iloctl.h"
+#include "../sys/iloctl.h"
 #include <unistd.h>
 
 void search(char* token,Trienode *trie,Mymap *map,int k);

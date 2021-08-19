@@ -1,4 +1,4 @@
-#include "Trienode.h"
+#include "inc/Trienode.h"
 
 Trienode::Trienode():value(-1)
 {
