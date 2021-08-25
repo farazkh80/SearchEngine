@@ -17,17 +17,21 @@ Trienode::~Trienode()
         delete(sibling);
 }
 
+// Function for inserting token to the Trie
 void Trienode::insert(char* token,int id)
 {
+    // node for the first letter already exists
     if(value==-1 || value==token[0])
     {
         value=token[0];
+        // if it is a one letter token(last letter), add the document id to list
         if(strlen(token)==1)
         {
             if(list==NULL)
                 list=new listnode(id);
             list->add(id);
         }
+        // if it is more than one letter move to the child
         else
         {
             if(child==NULL)
@@ -35,6 +39,7 @@ void Trienode::insert(char* token,int id)
             child->insert(token+1,id);
         }
     }
+    // if the first letter does not match the exisiting value, move to siblings
     else
     {
         if(sibling==NULL)
@@ -81,8 +86,8 @@ int Trienode::tfsearchword(int id,char* word,int curr)
     }
 }
 
-// function for searching a word in Trie and returning its 
-// frequency in all documents
+// function for searching a word in Trie and returning the number of documents
+// the word has been found
 int Trienode::dsearchword(char* word,int curr)
 {
     if(word[curr]==value)
@@ -117,7 +122,8 @@ int Trienode::dsearchword(char* word,int curr)
 }
 
 // function for searching for all the words in Trie 
-// and returning their frequency in all documents
+// and returning the number of documents that the word
+// has been found in
 void Trienode::dsearchall(char* buffer,int curr)
 {
     buffer[curr]=value;
@@ -133,6 +139,9 @@ void Trienode::dsearchall(char* buffer,int curr)
     buffer[curr]='\0';
 }
 
+// function for searching for the occurance of the word
+// in all documents and setting the scorelist of all the documents
+// containing the specific word
 void Trienode::search(char* word,int curr,Scorelist* scorelist)
 {
     if(word[curr]==value)

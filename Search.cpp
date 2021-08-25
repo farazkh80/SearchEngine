@@ -163,7 +163,7 @@ void df(Trienode* trie)
     if(token2!=NULL)
         cout<<token2<<" "<<trie->dsearchword(token2,0)<<endl;
 
-    // else return the frequency for all of the words
+    // if valid word return the frequency for all of the words
     else
     {
         char* buffer=(char*)malloc(256*sizeof(char));
@@ -182,7 +182,6 @@ int tf(char* token,Trienode* trie)
 {
     char* token2;
     token2=strtok(NULL," \t\n");
-
     // if token is null return
     if(token2==NULL)
     {
@@ -200,9 +199,9 @@ int tf(char* token,Trienode* trie)
         }
     }
 
-    // get the int id
+    // convert to int
     int id=atoi(token2);
-    // get and check the word to be searched
+    // get the word to be searched
     token2=strtok(NULL," \t\n");
     if(token2==NULL)
     {

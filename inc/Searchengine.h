@@ -1,3 +1,7 @@
+/*
+Main file for reading args and handling different
+search operations
+*/
 #include <iostream>
 #include <cstdlib>
 #include <cstring>

@@ -6,6 +6,8 @@ listnode::~listnode()
         delete(next);
 }
 
+// Getter function for incrementing times of occurance of a word in
+// the document with id did
 void listnode::add(int did)
 {
     if(did==id)
@@ -18,7 +20,8 @@ void listnode::add(int did)
     }
     
 }
-
+// Getter function for the times of occurance of a word in
+// the document with id did
 int listnode::search(int did)
 {
     if(did==id)
@@ -32,6 +35,8 @@ int listnode::search(int did)
     }
 }
 
+// Function for returining the number of documents the word
+// has been found in
 int listnode::volume()
 {
     if(next!=NULL)
@@ -40,6 +45,8 @@ int listnode::volume()
         return 1;
 }
 
+// Function for inserting the scorelist of each documents
+// for search ranking
 void listnode::passdocuments(Scorelist* scorelist)
 {
     scorelist->insert(id);

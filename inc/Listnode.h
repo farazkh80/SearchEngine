@@ -12,9 +12,17 @@ class listnode
     public:
         listnode(int did):id(did),times(0){next=NULL;}
         ~listnode();
+        // Getter function for incrementing times of occurance of a word in
+        // the document with id did
         void add(int did);
+        // Getter function for the times of occurance of a word in
+        // the document with id did
         int search(int did);
+        // Function for returining the number of documents the word
+        // has been found in
         int volume();
+        // Function for inserting the scorelist of each documents
+        // for search ranking
         void passdocuments(Scorelist* scorelist);
 };
 #endif

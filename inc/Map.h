@@ -1,3 +1,9 @@
+/*
+Mymap class used for storing documents of dataset
+used for quick access to documents' text and
+length size
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
