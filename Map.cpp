@@ -14,6 +14,9 @@ Mymap::~Mymap()
     free(documents);
     free(lengths);
 }
+
+// Function for inserting a document in the map
+// Each document is supposed to be a line
 int Mymap::insert(char* line,int i)
 {
     int curr;
@@ -40,7 +43,6 @@ int Mymap::insert(char* line,int i)
     while(end!=0 && token[end]==' ')
         token[end--]='\0';
     strcpy(documents[i],token);
-    cout << "token is " << token << endl;
     token=NULL;
     free(token);
 }

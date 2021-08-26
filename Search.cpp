@@ -1,9 +1,36 @@
 #include "inc/Search.h"
+#include "sys/ioctl.h"
 
 using namespace std;
 
 const float k1=1.2;
 const float b=0.75;
+
+void print_underline(int cols, int* lineflag, int* ucounter, int underline[2][100]){
+
+    char* output_line = (char*)malloc((cols+1)*sizeof(char));
+                    
+    for(int j=0; j<cols; j++){
+        output_line[j] = ' ';
+    }
+
+    *lineflag=0;
+    output_line[cols]='\0';
+                   
+    // show found matches
+    for(int j=0; j<*ucounter;j++){
+        for(int v=underline[0][j]; v < (underline[0][j] + underline[1][j]);v++){
+            output_line[v] = '^';
+        }
+    }
+
+    *ucounter=0;
+    cout << output_line << "\n";
+    free(output_line);
+
+
+}
+
 void search(char* token,Trienode* trie,Mymap* map,int k)
 {
     char warray[10][256];
@@ -11,6 +38,10 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
     token=strtok(NULL," \t\n");
     Scorelist* scorelist=new Scorelist();
     int i;
+    int cols = 120;
+
+    // process the words(tokens) to be searched by generating a score
+    // and searching them in the Trie
     for(i=0;i<10;i++)
     {
         if(token==NULL)
@@ -18,16 +49,22 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
         strcpy(warray[i],token);
         IDF[i]=log10(((double)map->getsize()-(double)trie->dsearchword(warray[i],0)+0.5)/((double)trie->dsearchword(warray[i],0)+0.5));
         trie->search(warray[i],0,scorelist);
-        token=strtok(NULL," \t\n");
+        token= strtok(NULL," \t\n");
     }
+
+    // get average length of all documents
     double avgdl=0;
     for(int m=0;m<map->getsize();m++)
         avgdl+=(double)map->getlength(m);
     avgdl/=(double)map->getsize();
+
     double score=0;
     Scorelist* templist=scorelist;
     Maxheap* heap=new Maxheap(k);
     int ceil=0;
+
+    // calculate the score of all documents based on the number of
+    // searched word(token) occurances
     while(templist!=NULL)
     {
         for(int l=0;l<i;l++)
@@ -49,6 +86,7 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
         if(id==-1)
             break;
         
+        // show the score for each document
         double score = (double)heap->remove();
 
         cout << '(' << id;
@@ -65,7 +103,7 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
         }
         printf(")[%10.6f]", score);
         
-
+        // get the document as a line and process tokens
         char* line = (char*)malloc(map->getbuffersize()*sizeof(char));
         strcpy(line, map->getDocument(id));
 
@@ -79,8 +117,12 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
         int lineflag=0;
         int underline[2][100];
         int ucounter=0;
+        bool end = false;
         
+        // while temp words of document is not the end
         while(temp != NULL){
+
+            // start newline with formating spaces
             if(newline){
                 currlength += 20;
                 if(counter != 0){
@@ -89,14 +131,19 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
                 }
                 newline=0;
             }
+
+            // compare the current temp token to all of the searched
+            // words and adjust underline array bases on matches
             for(int n=0;n<i;n++){
 
+                // if current token matches one of the searched words
                 if(!strcmp(warray[n], temp)){
-                    if(currlength + strlen(temp) + 1 <= w.ws_col){
+                    // setup the underlining start and end for the matched word
+                    if((currlength + strlen(temp) + 1) <= cols){
                         underline[0][ucounter] = currlength;
                         underline[1][ucounter] = strlen(temp);
                         ucounter++;
-                        lineflag=1;   
+                        lineflag=1;
                     }
                     break;
 
@@ -104,41 +151,28 @@ void search(char* token,Trienode* trie,Mymap* map,int k)
             }
             
             currlength += strlen(temp) + 1;
-            if(currlength-1 >= w.ws_col){
+            if((currlength-1) >= cols){
                 currlength = 0;
                 newline = 1;
                 cout << endl;
                 
                 if(lineflag){
-                    char* output_line = (char*)malloc((w.ws_col + 1)*sizeof(char));
-                    
-                    for(int j=0; j<w.ws_col; j++){
-                        output_line[j] = ' ';
-                    }
-                    
-                    output_line[w.ws_col]='\0';
-                    lineflag=0;
-                    
-                    // show found matches
-                    for(int j=0; j<ucounter;j++){
-                        for(int v=underline[0][j]; v < (underline[0][j] + underline[1][j]);v++){
-                            output_line[v] = '^';
-                        }
-                    }
-
-                    ucounter=0;
-                    cout << output_line;
-                    free(output_line);
+                    print_underline(cols, &lineflag, &ucounter, underline);
                 }
                 continue;
-                
             }
 
             cout << temp << " ";
             temp=strtok(NULL, " \t\n");
             counter++;
         }
-        cout << endl;
+        cout << "\n";
+
+        // to capture last lines flag
+        if(lineflag){
+            print_underline(cols, &lineflag, &ucounter, underline);
+        }
+
         free(line);
         free(temp);
     }
