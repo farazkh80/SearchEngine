@@ -1,6 +1,7 @@
 import pandas as pd
 from pytorch_lightning import Trainer
 import torch
+import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
 from sklearn.model_selection import train_test_split
@@ -19,6 +20,7 @@ class FineTuner(object):
         saved_checkpoint_file_name: str = None,
         ):
         super().__init__()
+        pl.seed_everything(42)
 
         self.pre_tuned = pre_tuned
         self.saved_checkpoint_file_name = saved_checkpoint_file_name
