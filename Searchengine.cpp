@@ -1,4 +1,5 @@
 #include "inc/Searchengine.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -7,32 +8,28 @@ using namespace std;
 // /search => does a full search over documents and returns all matches for a single <keyword>
 // /df => searches the number of total occurances of a single <keyword>
 // /tf => searches the number of occurances of a single <keyword> in a single <document>
-int inputmanager(char* input, Trienode* trie, Mymap* map, int k)
+int inputmanager(char* mode, char* words,Trienode* trie, Mymap* map, int k)
 {
-	char* token = strtok(input, " \t\n"); // get first token
+	//char* token = strtok(words, " \t\n"); // get first token
 
 	// compare the token with different search options
-	if (!strcmp(token, "/search"))
-		search(token, trie, map, k);
-	else if (!strcmp(token, "/df"))
-		df(trie);
-	else if (!strcmp(token, "/tf"))
+	if (!strcmp(mode, "/search"))
+		search(words, trie, map, k);
+	else if (!strcmp(mode, "/df"))
+		df(trie, words);
+	else if (!strcmp(mode, "/tf"))
 	{
-		if (tf(token, trie) == -1)
+		if (tf(words, trie) == -1)
 			return -1;
 	}
-	else if (!strcmp(token, "/exit"))
+	else if (!strcmp(mode, "/exit"))
 	{
 		cout << "Exiting..." << endl;
-		token = NULL;
-		free(token);
 		return 2;
 	}
 	else
 		return -1;
 
-	token = NULL;
-	free(token);
 	return 1;
 }
 
@@ -46,7 +43,7 @@ int inputmanager(char* input, Trienode* trie, Mymap* map, int k)
 int main(int argc, char** argv)
 {
 	// execution args processing
-	if (argc != 5 || strcmp(argv[1], "-d") || strcmp(argv[3], "-k"))
+	if (argc != 9 || strcmp(argv[1], "-d") || strcmp(argv[3], "-k") || strcmp(argv[5], "-m") || strcmp(argv[7], "-w"))
 	{
 		cout << "wrong arguments" << endl;
 		return -1;
@@ -77,21 +74,28 @@ int main(int argc, char** argv)
 	size_t inputlength = 0;
 
 	// search methods processing from istream
-	while (1)
-	{
-		getline(std::cin, str_input);
-		input = &str_input[0];
+	// while (1)
+	// {
+	// 	getline(std::cin, str_input);
+	// 	input = &str_input[0];
 
-		int ret = inputmanager(input, trie, mymap, k);
-		if (ret == -1)
-			cout << "Wrong input" << endl;
-		else if (ret == 2)
-		{
-			break;
-		}
-		inputlength = 0;
+	// 	int ret = inputmanager(input, trie, mymap, k);
+	// 	if (ret == -1)
+	// 		cout << "Wrong input" << endl;
+	// 	else if (ret == 2)
+	// 	{
+	// 		break;
+	// 	}
+	// 	inputlength = 0;
 
-	}
+	// }
+
+	// process words
+	string words = argv[8];
+	replace(words.begin(), words.end(), ',', ' ');
+
+	inputmanager(argv[6], &words[0], trie, mymap, k);
+	
 	delete(mymap);
 	delete(trie);
 	return 1;

@@ -34,7 +34,7 @@ void search(char* token, Trienode* trie, Mymap* map, int k)
 {
 	char warray[10][256];
 	double IDF[10];
-	token = strtok(NULL, " \t\n");
+	token = strtok(token, " \t\n");
 	Scorelist* scorelist = new Scorelist();
 	int i;
 	int cols = 120;
@@ -185,12 +185,12 @@ void search(char* token, Trienode* trie, Mymap* map, int k)
 // ex2: /df
 // ex1 will only return the frequency of given word,
 // but ex2 will return the frequency of all the words
-void df(Trienode* trie)
+void df(Trienode* trie, char* word)
 {
 	char* token2;
 
 	// get the word and if not null search
-	token2 = strtok(NULL, " \t\n");
+	token2 = strtok(word, " \t\n");
 	if (token2 != NULL)
 		cout << token2 << " " << trie->dsearchword(token2, 0) << endl;
 
@@ -212,7 +212,7 @@ void df(Trienode* trie)
 int tf(char* token, Trienode* trie)
 {
 	char* token2;
-	token2 = strtok(NULL, " \t\n");
+	token2 = strtok(token, " \t\n");
 	// if token is null return
 	if (token2 == NULL)
 	{

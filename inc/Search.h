@@ -21,7 +21,7 @@ void search(char* token, Trienode* trie, Mymap* map, int k);
 // ex2: /df
 // ex1 will only return the frequency of given word,
 // but ex2 will return the frequency of all the words
-void df(Trienode* trie);
+void df(Trienode* trie, char* word);
 // tf function for searching frequency of a specific word in a specific document
 // ex: /tf 2 hello
 // "2": document id and "hello": word to be searched for
