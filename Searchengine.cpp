@@ -8,7 +8,7 @@ using namespace std;
 // /search => does a full search over documents and returns all matches for a single <keyword>
 // /df => searches the number of total occurances of a single <keyword>
 // /tf => searches the number of occurances of a single <keyword> in a single <document>
-int inputmanager(char* mode, char* words,Trienode* trie, Mymap* map, int k)
+int inputmanager(char* mode, char* words, Trienode* trie, Mymap* map, int k)
 {
 	//char* token = strtok(words, " \t\n"); // get first token
 
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	cout << "Please Wait" << endl;
+	//cout << "Please Wait" << endl;
 	int linecounter = 0;
 	int maxlength = -1;
 	int k = atoi(argv[4]);
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	cout << "Database Ready" << endl;
+	//cout << "Database Ready" << endl;
 	char* input = NULL;
 	string str_input;
 	size_t inputlength = 0;
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 	replace(words.begin(), words.end(), ',', ' ');
 
 	inputmanager(argv[6], &words[0], trie, mymap, k);
-	
+
 	delete(mymap);
 	delete(trie);
 	return 1;

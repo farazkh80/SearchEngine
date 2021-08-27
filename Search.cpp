@@ -172,6 +172,7 @@ void search(char* token, Trienode* trie, Mymap* map, int k)
 
 		free(line);
 		free(temp);
+		cout << "[CEL]" << endl;
 	}
 
 	delete(heap);
