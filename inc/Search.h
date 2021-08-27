@@ -12,10 +12,9 @@ File handling different search operations including
 #include "Maxheap.h"
 #include "Map.h"
 #include <cmath>
-#include "../sys/iloctl.h"
-#include <unistd.h>
 
-void search(char* token,Trienode *trie,Mymap *map,int k);
+
+void search(char* token, Trienode* trie, Mymap* map, int k);
 // df function for searching frequency of a specific word in all of the documents
 // ex1: /df hello
 // "hello": word to be searched for
@@ -26,4 +25,4 @@ void df(Trienode* trie);
 // tf function for searching frequency of a specific word in a specific document
 // ex: /tf 2 hello
 // "2": document id and "hello": word to be searched for
-int tf(char* token,Trienode* trie);
+int tf(char* token, Trienode* trie);
