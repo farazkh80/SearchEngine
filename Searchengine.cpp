@@ -80,17 +80,15 @@ int main(int argc, char** argv)
 	while (1)
 	{
 		getline(std::cin, str_input);
-		input = (char*)&str_input;
+		input = &str_input[0];
 
 		int ret = inputmanager(input, trie, mymap, k);
 		if (ret == -1)
 			cout << "Wrong input" << endl;
 		else if (ret == 2)
 		{
-			free(input);
 			break;
 		}
-		free(input);
 		inputlength = 0;
 
 	}

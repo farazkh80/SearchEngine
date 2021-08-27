@@ -6,32 +6,31 @@ using namespace std;
 // and finding max length
 int read_sizes(int* linecounter, int* maxlength, char* docfile)
 {
-	ifstream myfile(docfile);
+	ifstream myfile;
+	myfile.open(docfile);
 	if (!myfile.is_open())
 	{
 		cout << "Error opening file" << endl;
 		return -1;
 	}
 	char* line = NULL;
-	string str_line = NULL;
-	size_t falsebuffer = 0;
+	string str_line;
 	int currlength;
 
 	// find max line length
 	while (!myfile.eof())
 	{
 		getline(myfile, str_line);
-		line = (char*)&str_line;
+		line = &str_line[0];
+		currlength = str_line.length();
+
 
 		if (*maxlength < currlength)
 			*maxlength = currlength;
 		(*linecounter)++;
-		free(line);
 		line = NULL;
-		falsebuffer = 0;
 	}
 	myfile.close();
-	free(line);
 	if (*linecounter == 0 || *maxlength < 6)
 	{
 		cout << "Document is too empty and does not meet requirements" << endl;
@@ -64,9 +63,10 @@ void split(char* temp, int id, Trienode* trie, Mymap* mymap)
 // inserting documents in the map and their tokens into trie
 int read_input(Mymap* mymap, Trienode* trie, char* docfile)
 {
-	ifstream myfile(docfile);
+	ifstream myfile;
+	myfile.open(docfile);
 	char* line = NULL;
-	string str_line = NULL;
+	string str_line;
 
 	int currlength;
 	char* temp = (char*)malloc(mymap->getbuffersize() * sizeof(char));
@@ -75,25 +75,24 @@ int read_input(Mymap* mymap, Trienode* trie, char* docfile)
 	for (int i = 0; i < mymap->getsize(); i++)
 	{
 		getline(myfile, str_line);
-		line = (char*)&str_line;
+		if(!myfile.eof()){
+			line = &str_line[0];
+			if (mymap->insert(line, i) == -1)
+			{
+				cout << "Document does not meet the requirements" << endl;
+				myfile.close();
+				free(temp);
+				return -1;
+			}
 
-		if (mymap->insert(line, i) == -1)
-		{
-			cout << "Document does not meet the requirements" << endl;
-			myfile.close();
-			free(line);
-			free(temp);
-			return -1;
+			// after insertation get document from id
+			strcpy(temp, mymap->getDocument(i));
+
+			// split it into tokens for trie insertation
+			split(temp, i, trie, mymap);
+			line = NULL;
+
 		}
-
-		// after insertation get document from id
-		strcpy(temp, mymap->getDocument(i));
-
-		// split it into tokens for trie insertation
-		split(temp, i, trie, mymap);
-
-		free(line);
-		line = NULL;
 	}
 	myfile.close();
 	free(temp);
