@@ -1,3 +1,8 @@
+/*
+Maxheap for storing the document based on their score
+to be used for ranking search results
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <cstring>

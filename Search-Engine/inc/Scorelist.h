@@ -1,5 +1,5 @@
 /*
-File for a list like Scorelist to be used for ranking the search results
+Scorelist data structure to be used for ranking the search results
 */
 #include <iostream>
 #include <cstdlib>

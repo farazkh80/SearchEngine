@@ -139,7 +139,7 @@ void Trienode::dsearchall(char* buffer, int curr)
 	buffer[curr] = '\0';
 }
 
-// function for searching for the occurance of the word
+// function for searching for the occurrence of the word
 // in all documents and setting the scorelist of all the documents
 // containing the specific word
 void Trienode::search(char* word, int curr, Scorelist* scorelist)

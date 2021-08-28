@@ -1,8 +1,8 @@
 /*
 File handling different search operations including
 /search <keyword> => searches for the matching results of <keyword> in the doc
-/df <keyword> => searches for the <keyword> num of occurance in all docs
-/tf <id> <keyword> => searches for the <keyword> num of occurance in doc with id <id>
+/df <keyword> => searches for the <keyword> num of occurrence in all docs
+/tf <id> <keyword> => searches for the <keyword> num of occurrence in doc with id <id>
 */
 #include <iostream>
 #include <cstdlib>
@@ -13,7 +13,13 @@ File handling different search operations including
 #include "Map.h"
 #include <cmath>
 
-
+// /search function for searching occurrence of a specific word in all of the documents
+// ex1: /search hello
+// "hello": word to be searched for is hello
+// returns: a ranked list of documents showing the exact location of word
+// ex2: /search hello
+// "hello,data": words to be searched for are hello and data
+// returns: a ranked list of documents showing the exact location of words
 void search(char* token, Trienode* trie, Mymap* map, int k);
 // df function for searching frequency of a specific word in all of the documents
 // ex1: /df hello

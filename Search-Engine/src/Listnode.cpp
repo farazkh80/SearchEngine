@@ -6,7 +6,7 @@ listnode::~listnode()
 		delete(next);
 }
 
-// Getter function for incrementing times of occurance of a word in
+// Getter function for incrementing times of occurrence of a word in
 // the document with id did
 void listnode::add(int did)
 {
@@ -20,7 +20,7 @@ void listnode::add(int did)
 	}
 
 }
-// Getter function for the times of occurance of a word in
+// Getter function for the times of occurrence of a word in
 // the document with id did
 int listnode::search(int did)
 {

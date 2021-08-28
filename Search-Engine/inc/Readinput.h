@@ -1,7 +1,8 @@
 /*
-File for reading document sizes, document to map insertation
+File for reading document sizes, document to map insertion
 and token to trie insertion
 */
+
 #include <iostream>
 #include <fstream>
 #include <string>

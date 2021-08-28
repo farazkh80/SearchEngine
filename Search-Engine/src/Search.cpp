@@ -5,6 +5,8 @@ using namespace std;
 const float k1 = 1.2;
 const float b = 0.75;
 
+// Function for printing underline arrows for displaying
+// the exact occurrence location of words
 void print_underline(int cols, int* lineflag, int* ucounter, int underline[2][100]) {
 
 	char* output_line = (char*)malloc((cols + 1) * sizeof(char));
@@ -30,6 +32,13 @@ void print_underline(int cols, int* lineflag, int* ucounter, int underline[2][10
 
 }
 
+// /search function for searching occurrence of a specific word in all of the documents
+// ex1: /search hello
+// "hello": word to be searched for is hello
+// returns: a ranked list of documents showing the exact location of word
+// ex2: /search hello
+// "hello,data": words to be searched for are hello and data
+// returns: a ranked list of documents showing the exact location of words
 void search(char* token, Trienode* trie, Mymap* map, int k)
 {
 	char warray[10][256];
@@ -63,7 +72,7 @@ void search(char* token, Trienode* trie, Mymap* map, int k)
 	int ceil = 0;
 
 	// calculate the score of all documents based on the number of
-	// searched word(token) occurances
+	// searched word(token) occurrences
 	while (templist != NULL)
 	{
 		for (int l = 0;l < i;l++)

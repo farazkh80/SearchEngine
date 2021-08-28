@@ -1,3 +1,7 @@
+/*
+ListNode data structure mapping the ids of all documents
+to the number of times the <keyword> has been repeated in them 
+*/
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
@@ -12,10 +16,10 @@ class listnode
     public:
         listnode(int did):id(did),times(0){next=NULL;}
         ~listnode();
-        // Getter function for incrementing times of occurance of a word in
+        // Getter function for incrementing times of occurrence of a word in
         // the document with id did
         void add(int did);
-        // Getter function for the times of occurance of a word in
+        // Getter function for the times of occurrence of a word in
         // the document with id did
         int search(int did);
         // Function for returining the number of documents the word
