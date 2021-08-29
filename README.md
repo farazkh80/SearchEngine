@@ -37,25 +37,25 @@ Current supported summarization models:
 - t5-small
 - t5-base
 
-![text-summarization](../SearchEngine/visuals/text-summarization.gif)
+![text-summarization](visuals/text-summarization.gif)
 
 ## 1.2 Single Keyword Search
 
 The `Searching` functionality of the program allows the user to enter a single keyword in the search `text_input`, choose the `Maximum Searched Results` to be displayed and wait for the search engine to find the occurrences of the keyword in the news/articles dataset and display them with a custom ranking scheme dependent of the number of occurrences.
 
-![single-search](../SearchEngine/visuals/single-search.gif)
+![single-search](visuals/single-search.gif)
 
 ## 1.3 Multiple Keyword Search
 
 The `Searching` functionality of the program allows the user to enter multiple keywords either in the format of `keyword_1,keyword_2>` or `<keyword_1 keyword_2>` in the search `text_input`, choose the `Maximum Searched Results` to be displayed and wait for the search engine to find the occurrences of the keyword in the news/articles dataset and display them with a custom ranking scheme dependent of the number of occurrences. (**Note:** the search engine will consider each `<keyword>` separately and not as a whole)
 
-![multiple-search](../SearchEngine/visuals/multiple-search.gif)
+![multiple-search](visuals/multiple-search.gif)
 
 ## 1.4 Keyword Search and Summarize
 
 The `Searching` and `Summarizing` functionalities can also be used together by allowing the user to enter single/multiple keywords in the search `text_input`, choose the `Maximum Searched Results` to be displayed, choose single/multiple models to be used for summarization at once and adjust the `Maximum Summary Length`. Upon displaying search results, clicking on the `Summarize` button underneath the displayed results will summarize the text of the displayed document by loading the model from checkpoint and summarizing the text in less than a minute.
 
-![keyword-search-and-summarize](../SearchEngine/visuals/keyword-search-and-summarize.gif)
+![keyword-search-and-summarize](visuals/keyword-search-and-summarize.gif)
 
 # 2 Installation/Usage
 
