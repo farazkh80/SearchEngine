@@ -20,7 +20,6 @@
 - [Current Issues](#current-issues)
 - [Contributing](#contributing)
 - [Roadmap](#roadmap)
-- [Acknowledgements](#acknowledgements)
 - [License](#license)
 
 - [License](#license)
@@ -42,11 +41,13 @@
 
 # Project Overview
 
-T5 Text Search and Summarize Engine has two core components, a **Transformer-Based Pre-Trained T5 Model Fine-Tuner** used for text summarization and a **Token-Based Text Searcher**. The primary use of this project is for news text summarization, however, it can be expanded for any type of natural language summarization.
+T5 Text Search and Summarize Engine has two core components, a **Transformer-Based Pre-Trained T5 Model Fine-Tuner** used for text summarization and a **Token-Based Text Searcher**.
+
+The primary use of this project is for news text summarization, however, it can be expanded for any type of natural language summarization.
 
 ## 1. T5 Text Summarizer
 
-The T5 Text Summarizer part of this project uses the pre-trained PyTorch `transformers.ioT5ForConditionalGeneration` model from the **Hugging Face Transformers API** and **Pytorch Lightning** research framework for handling cross-hardware training, model check-pointing and logging.
+The T5 Text Summarizer part of this project uses the pre-trained PyTorch `transformers.ioT5ForConditionalGeneration` model from the [Hugging Face](https://huggingface.co/transformers/model_doc/t5.html) and [PyTorch Lightning](https://pytorch-lightning.readthedocs.io/en/latest/) research framework for handling cross-hardware training, model check-pointing and logging.
 
 T5 model can be used for wide range of NLP tasks such as Translation, summarization, Classification, Regression and Q&A if fine-tuned with a dataset relevant to the desired task.
 
@@ -91,9 +92,9 @@ Overall performance of finalized T5 Models is shown in the figure below.
 
 ### 1.3 T5 Summarization Fine Tuning
 
-For fine-tuning T5 for the task of news summarization, a [news dataset] with +4500 news text and summary has been used.
+For fine-tuning T5 for the task of news summarization, a [news_summary dataset](https://www.kaggle.com/sunnysai12345/news-summary) with +4500 news texts and summaries has been used.
 
-Hyper parameters used:
+Hyper-parameters used for fine-tunning:
 
 - **For tokenization**
   - text_max_token_len: 512 tokens
@@ -108,13 +109,13 @@ Hyper parameters used:
   - test_size: 0.1
     <br>
 - **For Summarization**
-  - max_length: 150
+  - max_length: adjustable (default=150)
   - num_beams: 2
   - repetition_penalty: 1.0
   - length_penalty: 1.0
   - early_stopping: True
 
-Currently, only two of **Hugging Face** T5 models are fine-tuned which are `t5-small` trained with GPU and `t5-base` trained with a 8-core v2 TPU.
+Currently, only two of [Hugging Face](https://huggingface.co/transformers/model_doc/t5.html) T5 models are fine-tuned which are `t5-small` trained with GPU(PyTorch CUDA) and `t5-base` trained with Google's 8-core v2 TPU.
 
 ## 2. Text Search Engine
 
@@ -131,18 +132,29 @@ The dataset initialization is achieved by leveraging `Trie` for storing tokens (
 
 Text searching is achieved through main functionalities:
 
-1. `/tf` : given a `<key-word>` and a document `<id>`, will search the `<keyword>` token in the `Trienode` and retrieving the times of occurrences for the corresponding `<id>` of the token's `<Listnode>`, ultimately returning the number of times the `<key-word>` has been detected in document with id `<id>`.
+1. `/tf` : given a `<key-word>` and a document `<id>`, will search the `<keyword>` token in the `Trienode` and retrieving the times of occurrences for the corresponding `<id>` of the token's `<Listnode>`, ultimately returning the number of times the `<key-word>` has been detected in document with id `<id>`. (not supported by the web-interface)
    <br>
-2. `/df` : given a `<key-word>`, will leverage the `/tf` function to search through all the documents and return the total number of times the `<key-word>` has been detected in the whole dataset.
+2. `/df` : given a `<key-word>`, will leverage the `/tf` function to search through all the documents and return the total number of times the `<key-word>` has been detected in the whole dataset. (not supported by the web-interface)
    <br>
-3. `/search`: given a set of `<keyword1,keyword2,..>` will leverage `/tf` search to find the number of occurrences of each keyword in documents, calculate a logarithmic score for ranking scheme and store it in a list(denoted as `Scorelist`) and finally display the results in a descending order of scores which is achieved through transforming the `Scorelist` to a `Maxheap`, and removing highest scores one at a time.
+3. `/search`: given a set of `<keyword1,keyword2,..>` will leverage `/tf` search to find the number of occurrences of each keyword in documents, calculate a logarithmic score for ranking scheme and store it in a list(denoted as `Scorelist`) and finally display the results in a descending order of scores which is achieved through transforming the `Scorelist` to a `Maxheap`, and removing highest scores one at a time. (supported by the web-interface)
 
 # Current Issues
 
+- Searching dataset initialization takes place before each new search, reducing the searching speed
+- Constant, non-configurable `text_max_token_len` of 512 and `summary_max_token_len` of 128 as suggested by the original [T5](https://arxiv.org/abs/1910.10683) paper, limit the word-range of input and output text
+
 # Contributing
+
+Contributions are always welcome!
+
+A detailed guide about project specifics and in-depth architecture analysis is to be released soon.
 
 # Roadmap
 
-# Acknowledgements
+- Avoid searching dataset initialization from happening before each search by either running both the text summarization and searching engines in a parallel setup or storing search dataset in a database.
+- Add configurable `text_max_token_len` and `summary_max_token_len` to increase text word-range flexibility
+- Fine-tune T5 Models with higher number of parameters such as `t5-large` and `t5-3B` for better results
 
 # License
+
+This project is licensed under the terms of the MIT license.
