@@ -1,6 +1,6 @@
 # T5 Text Search and Summarize Engine
 
-A Searching and Summarizing Engine leveraging a custom-built search engine for news keyword searching and a pre-trained transformers-based T5 Model fine-tuned on news text and summary data, achieving state-of-the-art results on news summarization
+A Searching and Summarizing Engine leveraging a custom-built search engine for news keyword searching, and a pre-trained transformers-based T5 Model, fine-tuned on news text and summary data to achieve state-of-the-art results on text summarization
 
 # Table of Contents
 
@@ -15,7 +15,7 @@ A Searching and Summarizing Engine leveraging a custom-built search engine for n
 - [3 Project Overview](#3-project-overview)
   - [3.1 T5 Text Summarizer](#31-t5-text-summarizer)
     - [3.1.1 T5 Background](#311-t5-background)
-    - [3.1.2 T5 Final Architecture:](#312-t5-final-architecture)
+    - [3.1.2 T5 Final Architecture](#312-t5-final-architecture)
     - [3.1.3 T5 Summarization Fine-Tuning](#313-t5-summarization-fine-tuning)
   - [3.2 Text Search Engine](#32-text-search-engine)
     - [3.2.1 Text Dataset Architecture](#321-text-dataset-architecture)
@@ -30,7 +30,7 @@ A Searching and Summarizing Engine leveraging a custom-built search engine for n
 
 ## 1.1 Multiple T5 Text Summarization Models
 
-The `Summarizing` functionality of program allows the user to enter a text with more than 50 words in the `text_area`, choose single/multiple models to be used for summarization at once and adjust the `Maximum Summary Length`. The program will load the model from checkpoint and summarize the text in less than a minute.
+The `Summarizing` functionality of program allows the user to enter a text with more than 50 words in the `text_area`, choose single/multiple models to be used for summarization at once and adjust the `Maximum Summary Length`. The program will load the model from checkpoint, and summarize the text in less than a minute.
 
 Current supported summarization models:
 
@@ -71,11 +71,11 @@ The primary use of this project is for news text summarization, however, it can 
 
 The T5 Text Summarizer part of this project uses the pre-trained PyTorch `transformers.ioT5ForConditionalGeneration` model from the [Hugging Face API](https://huggingface.co/transformers/model_doc/t5.html) and [PyTorch Lightning](https://pytorch-lightning.readthedocs.io/en/latest/) research framework for handling cross-hardware training, model check-pointing and logging.
 
-T5 model can be used for wide range of NLP tasks such as Translation, Summarization, Classification, Regression and Q&A if fine-tuned with a dataset relevant to the desired task.
+T5 model can be used for wide range of NLP tasks such as Translation, Summarization, Classification, Regression and Q&A, if fine-tuned with a dataset relevant to the desired task.
 
 ![](https://cdn-images-1.medium.com/max/947/1*voAo0zBPTCVrwcut1oHtEg.png)
 
-To see how T5 is able to achieve these results, a brief explanation of background and architecture behind T5 is provided below.
+To see how T5 is able to achieve these results, a brief explanation of the [background](#311-t5-background) and [architecture](#312-t5-final-architecture) behind T5 is provided below.
 
 ### 3.1.1 T5 Background
 
@@ -89,7 +89,7 @@ The final T5 model is obtained by altering the model setup one aspect at a time 
 
 ![transformer-architecture](https://miro.medium.com/max/1400/1*iJcUH1F0TmCQE5p2wQt9og.png)
 
-### 3.1.2 T5 Final Architecture:
+### 3.1.2 T5 Final Architecture
 
 - **Input and Output Format** T5 uses a "text-to-text" format to provide a consistent training objective for the diverse set of tasks described in part [3.1 T5 Text Summarizer](#31-t5-text-summarizer), i.e. input is "translate English to German: That is good" and the output is "Das ist gut".
   <br>
