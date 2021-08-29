@@ -1,4 +1,8 @@
 <div align="center">
+<img src="visuals/T5 -Text-Summarization-and-Search-Engine.png"/>
+</div>
+
+<div align="center">
 
 ![](https://img.shields.io/github/license/farazkh80/SearchEngine)
 ![](https://img.shields.io/github/last-commit/farazkh80/SearchEngine)
@@ -6,7 +10,6 @@
 ![](https://img.shields.io/github/stars/farazkh80/SearchEngine)
 
 </div>
-
 
 # T5 Text Search and Summarize Engine
 
