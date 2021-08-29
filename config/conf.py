@@ -11,6 +11,7 @@ config = Config({
         'win-64': os.path.join('Search-Engine', 'win-exes', 'win-64-exe','Search-Engine.exe'),
         'unix': os.path.join('Search-Engine','/searchengine')
     },
+    'fine_tune_dataset_path': os.path.join('data','summarization-data', 'news_summary.csv'),
     'model_ckpt_path': {
         't5-base': 't5-base-full-seeded.ckpt',
         't5-small': 't5-small-full-seeded.ckpt'

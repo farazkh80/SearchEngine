@@ -11,6 +11,7 @@ from transformers import (
 
 from NewsSummaryModel import NewsSummaryModel
 from NewsSummaryDatasetModule import NewsSummaryDatasetModule
+from config.conf import config
 
 class FineTuner(object):
     def __init__(
@@ -29,7 +30,7 @@ class FineTuner(object):
 
     def fit_and_tune(
         self,
-        dataset_file_relative_path: str = None,
+        dataset_file_relative_path: str = config['fine_tune_dataset_path'],
         new_checkpoint_file_name: str =  None,
         gpu_num: int = 0,
         tpu_num: int = 0,

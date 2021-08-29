@@ -72,7 +72,45 @@ The `Searching` and `Summarizing` functionalities can also be used together by a
 
 # 2 Installation/Usage
 
-coming soon
+1. Clone the repository and change the directory to the path the cloned repository is located at
+
+```bash
+git clone https://github.com/farazkh80/SearchEngine.git
+cd SearchEngine
+```
+
+2. In order to enable the search engine choose the right binary file you would need to change the operating system in **line 7** of `config/conf.py` of the repo.
+   (change to match running os supported options: 'win-32', 'win-64' and 'unix')
+
+```python
+config/conf.py
+'os-system': 'unix', # change to match running os supported options: 'win-32', 'win-64' and 'unix'
+```
+
+3. Create a virtual environment and activate it
+
+```bash
+virtualenv venv
+venv/Scripts/activate
+```
+
+4. Install the project requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+1. You need to download the pre-tuned t5-model checkpoints and place them in the root of the repository (if you are willing to fine-tune from scratch and have the required computational power you can skip this step)
+
+- [Google Drive Share Link for t5-base](https://drive.google.com/file/d/1NmQGZHbesXGQgJxO07jbcV-7dGK1MUfO/view?usp=sharing)
+
+- [Google Drive Share Link for t5-small](https://drive.google.com/file/d/1dr_QJndLOk48I_bckIqGusr6Ok267ph0/view?usp=sharing)
+
+6. Run the streamlit app and you have a super powerful text summarization and searching interface
+
+```bash
+streamlit run app.py
+```
 
 # 3 Project Overview
 
