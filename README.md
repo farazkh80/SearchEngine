@@ -1,3 +1,13 @@
+<div align="center">
+
+![](https://img.shields.io/github/license/farazkh80/SearchEngine)
+![](https://img.shields.io/github/last-commit/farazkh80/SearchEngine)
+![](https://img.shields.io/github/v/release/farazkh80/SearchEngine)
+![](https://img.shields.io/github/stars/farazkh80/SearchEngine)
+
+</div>
+
+
 # T5 Text Search and Summarize Engine
 
 A Searching and Summarizing Engine leveraging a custom-built search engine for news keyword searching, and a pre-trained transformers-based T5 Model, fine-tuned on news text and summary data to achieve state-of-the-art results on text summarization
