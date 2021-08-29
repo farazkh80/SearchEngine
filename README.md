@@ -83,9 +83,9 @@ To see how T5 is able to achieve these results, a brief explanation of the [back
 
 In their study, researchers start with a baseline model roughly equivalent to the [original Transformer](https://arxiv.org/abs/1706.03762) proposed by [Vaswani et al. (2017)](https://arxiv.org/abs/1706.03762) with 3 main exceptions of removing the Layer Norm bias, placing the layer normalization outside residual path and using a different position embedding scheme.
 
-For training, T5 uses [C4](tensorlow.text.c4) dataset, a heuristic filtered version of common crawl web extracted text. In filtering, any line that didn’t end in a terminal punctuation mark, or containing the word javascript or any pages that had a curly bracket get removed. It deduplicates the dataset by taking a sliding window of 3 sentence chunks so that only one of them appeared the dataset. It ends up with 750 gigabytes of clean-ish English text.
+For training, T5 uses [C4](tensorlow.text.c4) dataset, a heuristic filtered version of common crawl web extracted text. In filtering, any line that didn’t end in a terminal punctuation mark, or containing the word javascript or any pages that had a curly bracket get removed. Dataset is then deduplicated by taking a sliding window of 3 sentence chunks so that only one of them appeared. C4 ends up with roughly 750 gigabytes of clean-ish English text.
 
-The final T5 model is obtained by altering the model setup one aspect at a time and choosing the option with the best performance.
+The final T5 model is obtained by **altering the model setup one aspect at a time** and **choosing the option with the best performance**.
 
 ![transformer-architecture](https://miro.medium.com/max/1400/1*iJcUH1F0TmCQE5p2wQt9og.png)
 
@@ -154,16 +154,16 @@ The dataset initialization is achieved by leveraging `Trie` for storing tokens (
 
 Text searching is achieved through main functionalities:
 
-1. `/tf` : given a `<key-word>` and a document `<id>`, will search the `<keyword>` token in the `Trienode` and retrieving the times of occurrences for the corresponding `<id>` of the token's `<Listnode>`, ultimately returning the number of times the `<key-word>` has been detected in document with id `<id>`. (not supported by the web-interface)
+1. `/tf` : given a `<key-word>` and a document `<id>`, will search the `<keyword>` token in the `Trienode` and retrieve the times of occurrences for the corresponding `<id>` of the token's `<Listnode>`, ultimately returning the number of times the `<key-word>` has been detected in document with id `<id>`. (not supported by the web-interface)
    <br>
 2. `/df` : given a `<key-word>`, will leverage the `/tf` function to search through all the documents and return the total number of times the `<key-word>` has been detected in the whole dataset. (not supported by the web-interface)
    <br>
-3. `/search`: given a set of `<keyword1,keyword2,..>` will leverage `/tf` search to find the number of occurrences of each keyword in documents, calculate a logarithmic score for ranking scheme and store it in a list(denoted as `Scorelist`) and finally display the results in a descending order of scores which is achieved through transforming the `Scorelist` to a `Maxheap`, and removing highest scores one at a time. (supported by the web-interface)
+3. `/search`: given a set of `<keyword1,keyword2,..>` will leverage `/tf` search to find the number of occurrences of each keyword in documents, calculate a logarithmic score for ranking scheme and store it in a list(denoted as `Scorelist`) and finally display the results in a descending order of scores which is achieved through transforming the `Scorelist` to a `Maxheap` structure, and removing highest score one at a time. (supported by the web-interface)
 
 # 4 Current Issues
 
 - Searching dataset initialization takes place before each new search, reducing the searching speed
-- Model loading from checkpoint should also happen only once at the beginning of the program instead of happening before each summarization task
+- Model loading from checkpoint also happens before each summarization task
 - Constant, non-configurable `text_max_token_len` of 512 and `summary_max_token_len` of 128 as suggested by the original [T5](https://arxiv.org/abs/1910.10683) paper, limit the word-range of input and output text
 
 # 5 Contributing
@@ -183,7 +183,7 @@ A detailed guide about project specifics and in-depth architecture analysis will
 - New Features:
   - Fine-tune T5 Models with higher number of parameters such as `t5-large` and `t5-3B` for better results.
   - Add other NLP models such as `BERT` and `ALBERT` for performance comparison.
-  - Add a web news scrapper to maintain a up-to-date version of latest most popular `n` news.
+  - Add a web news scrapper to maintain an up-to-date version of latest most popular `n` news.
 
 # 7 Acknowledgements
 
