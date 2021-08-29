@@ -1,61 +1,83 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 # T5 Text Search and Summarize Engine
+
+A Searching and Summarizing Engine leveraging a custom-built search engine for news keyword searching and a pre-trained transformers-based T5 Model fine-tuned on news text and summary data, achieving state-of-the-art results on news summarization
 
 # Table of Contents
 
 - [T5 Text Search and Summarize Engine](#t5-text-search-and-summarize-engine)
 - [Table of Contents](#table-of-contents)
-- [T5 Text Search and Summarize Engine Demo](#t5-text-search-and-summarize-engine-demo)
-- [Features](#features)
-- [Installation/Usage](#installationusage)
-- [Project Overview](#project-overview)
-  - [1. T5 Text Summarizer](#1-t5-text-summarizer)
-    - [1.1 T5 Background](#11-t5-background)
-    - [1.2 T5 Final Architecture:](#12-t5-final-architecture)
-    - [1.3 T5 Summarization Fine Tuning](#13-t5-summarization-fine-tuning)
-  - [2. Text Search Engine](#2-text-search-engine)
-    - [2.1 Text Dataset Architecture](#21-text-dataset-architecture)
-    - [2.2 Text Search Logic](#22-text-search-logic)
-- [Current Issues](#current-issues)
-- [Contributing](#contributing)
-- [Roadmap](#roadmap)
-- [License](#license)
+- [1 Features](#1-features)
+  - [1.1 Multiple T5 Text Summarization Models](#11-multiple-t5-text-summarization-models)
+  - [1.2 Single Keyword Search](#12-single-keyword-search)
+  - [1.3 Multiple Keyword Search](#13-multiple-keyword-search)
+  - [1.4 Keyword Search and Summarize](#14-keyword-search-and-summarize)
+- [2 Installation/Usage](#2-installationusage)
+- [3 Project Overview](#3-project-overview)
+  - [3.1 T5 Text Summarizer](#31-t5-text-summarizer)
+    - [3.1.1 T5 Background](#311-t5-background)
+    - [3.1.2 T5 Final Architecture:](#312-t5-final-architecture)
+    - [3.1.3 T5 Summarization Fine-Tuning](#313-t5-summarization-fine-tuning)
+  - [3.2 Text Search Engine](#32-text-search-engine)
+    - [3.2.1 Text Dataset Architecture](#321-text-dataset-architecture)
+    - [3.2.2 Text Search Logic](#322-text-search-logic)
+- [4 Current Issues](#4-current-issues)
+- [5 Contributing](#5-contributing)
+- [6 Roadmap](#6-roadmap)
+- [7 Acknowledgements](#7-acknowledgements)
+- [8 License](#8-license)
 
-- [License](#license)
+# 1 Features
 
-# T5 Text Search and Summarize Engine Demo
+## 1.1 Multiple T5 Text Summarization Models
 
-# Features
+The `Summarizing` functionality of program allows the user to enter a text with more than 50 words in the `text_area`, choose single/multiple models to be used for summarization at once and adjust the `Maximum Summary Length`. The program will load the model from checkpoint and summarize the text in less than a minute.
 
-- Multiple T5 Text Summarization Models
-  - t5-small
-  - t5-base
-  - t5-large
-- Single Keyword Search
-- Single Keyword Search and Summarize
-- Multiple Keyword Search
-- Multiple Keyword Search and Summarize
+Current supported summarization models:
 
-# Installation/Usage
+- t5-small
+- t5-base
 
-# Project Overview
+![text-summarization](../SearchEngine/visuals/text-summarization.gif)
+
+## 1.2 Single Keyword Search
+
+The `Searching` functionality of the program allows the user to enter a single keyword in the search `text_input`, choose the `Maximum Searched Results` to be displayed and wait for the search engine to find the occurrences of the keyword in the news/articles dataset and display them with a custom ranking scheme dependent of the number of occurrences.
+
+![single-search](../SearchEngine/visuals/single-search.gif)
+
+## 1.3 Multiple Keyword Search
+
+The `Searching` functionality of the program allows the user to enter multiple keywords either in the format of `keyword_1,keyword_2>` or `<keyword_1 keyword_2>` in the search `text_input`, choose the `Maximum Searched Results` to be displayed and wait for the search engine to find the occurrences of the keyword in the news/articles dataset and display them with a custom ranking scheme dependent of the number of occurrences. (**Note:** the search engine will consider each `<keyword>` separately and not as a whole)
+
+![multiple-search](../SearchEngine/visuals/multiple-search.gif)
+
+## 1.4 Keyword Search and Summarize
+
+The `Searching` and `Summarizing` functionalities can also be used together by allowing the user to enter single/multiple keywords in the search `text_input`, choose the `Maximum Searched Results` to be displayed, choose single/multiple models to be used for summarization at once and adjust the `Maximum Summary Length`. Upon displaying search results, clicking on the `Summarize` button underneath the displayed results will summarize the text of the displayed document by loading the model from checkpoint and summarizing the text in less than a minute.
+
+![keyword-search-and-summarize](../SearchEngine/visuals/keyword-search-and-summarize.gif)
+
+# 2 Installation/Usage
+
+coming soon
+
+# 3 Project Overview
 
 T5 Text Search and Summarize Engine has two core components, a **Transformer-Based Pre-Trained T5 Model Fine-Tuner** used for text summarization and a **Token-Based Text Searcher**.
 
 The primary use of this project is for news text summarization, however, it can be expanded for any type of natural language summarization.
 
-## 1. T5 Text Summarizer
+## 3.1 T5 Text Summarizer
 
-The T5 Text Summarizer part of this project uses the pre-trained PyTorch `transformers.ioT5ForConditionalGeneration` model from the [Hugging Face](https://huggingface.co/transformers/model_doc/t5.html) and [PyTorch Lightning](https://pytorch-lightning.readthedocs.io/en/latest/) research framework for handling cross-hardware training, model check-pointing and logging.
+The T5 Text Summarizer part of this project uses the pre-trained PyTorch `transformers.ioT5ForConditionalGeneration` model from the [Hugging Face API](https://huggingface.co/transformers/model_doc/t5.html) and [PyTorch Lightning](https://pytorch-lightning.readthedocs.io/en/latest/) research framework for handling cross-hardware training, model check-pointing and logging.
 
-T5 model can be used for wide range of NLP tasks such as Translation, summarization, Classification, Regression and Q&A if fine-tuned with a dataset relevant to the desired task.
+T5 model can be used for wide range of NLP tasks such as Translation, Summarization, Classification, Regression and Q&A if fine-tuned with a dataset relevant to the desired task.
 
 ![](https://cdn-images-1.medium.com/max/947/1*voAo0zBPTCVrwcut1oHtEg.png)
 
 To see how T5 is able to achieve these results, a brief explanation of background and architecture behind T5 is provided below.
 
-### 1.1 T5 Background
+### 3.1.1 T5 Background
 
 [T5](https://arxiv.org/abs/1910.10683) (**T**ext-**t**o-**T**ext **T**ransfer **T**ransformer) model is a result of a systematic study conducted by Google researchers as presented in [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) by Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, Peter J. Liu.
 
@@ -67,9 +89,9 @@ The final T5 model is obtained by altering the model setup one aspect at a time 
 
 ![transformer-architecture](https://miro.medium.com/max/1400/1*iJcUH1F0TmCQE5p2wQt9og.png)
 
-### 1.2 T5 Final Architecture:
+### 3.1.2 T5 Final Architecture:
 
-- **Input and Output Format** T5 uses a "text-to-text" format to provide a consistent training objective for the diverse set of tasks described in part [1. T5 Text Summarizer](#1-t5-text-summarizer), i.e. input is "translate English to German: That is good" and the output is "Das ist gut".
+- **Input and Output Format** T5 uses a "text-to-text" format to provide a consistent training objective for the diverse set of tasks described in part [3.1 T5 Text Summarizer](#31-t5-text-summarizer), i.e. input is "translate English to German: That is good" and the output is "Das ist gut".
   <br>
 - **Objective** Finalized T5 base model's objective is the span-corruption objective with a span length of 3 and corruption rate of 15% of the original sequence, inspired by SpanBert ([Joshiet al., 2019](https://arxiv.org/abs/1907.10529))
   <br>
@@ -90,7 +112,7 @@ Overall performance of finalized T5 Models is shown in the figure below.
 
 ![final-performance](https://miro.medium.com/max/1400/0*5HilfwNe2Wg3Jsxd.png)
 
-### 1.3 T5 Summarization Fine Tuning
+### 3.1.3 T5 Summarization Fine-Tuning
 
 For fine-tuning T5 for the task of news summarization, a [news_summary dataset](https://www.kaggle.com/sunnysai12345/news-summary) with +4500 news texts and summaries has been used.
 
@@ -117,18 +139,18 @@ Hyper-parameters used for fine-tunning:
 
 Currently, only two of [Hugging Face](https://huggingface.co/transformers/model_doc/t5.html) T5 models are fine-tuned which are `t5-small` trained with GPU(PyTorch CUDA) and `t5-base` trained with Google's 8-core v2 TPU.
 
-## 2. Text Search Engine
+## 3.2 Text Search Engine
 
 The Text Searching Engine is developed purely in `C` and `C++` for optimized speed and memory handling. The search engine is initialized with a static dataset containing thousands of news and articles rendered from the web.
 After initialization, the search engine is tasked with searching for a certain word in the dataset and display the documents(news) containing the searched keyword with a custom ranking scheme.
 
-### 2.1 Text Dataset Architecture
+### 3.2.1 Text Dataset Architecture
 
 The dataset initialization is achieved by leveraging `Trie` for storing tokens (denoted as `Trienode`) and `Linked List` data structures for mapping document id to news/document text (denoted as `Mymap`) and storing times of occurrences of each token in all news/document ids(denoted as `Listnode`).
 
 ![search-dataset-setup](!visuals/../visuals/search-dataset-setup.jpg)
 
-### 2.2 Text Search Logic
+### 3.2.2 Text Search Logic
 
 Text searching is achieved through main functionalities:
 
@@ -138,23 +160,45 @@ Text searching is achieved through main functionalities:
    <br>
 3. `/search`: given a set of `<keyword1,keyword2,..>` will leverage `/tf` search to find the number of occurrences of each keyword in documents, calculate a logarithmic score for ranking scheme and store it in a list(denoted as `Scorelist`) and finally display the results in a descending order of scores which is achieved through transforming the `Scorelist` to a `Maxheap`, and removing highest scores one at a time. (supported by the web-interface)
 
-# Current Issues
+# 4 Current Issues
 
 - Searching dataset initialization takes place before each new search, reducing the searching speed
+- Model loading from checkpoint should also happen only once at the beginning of the program instead of happening before each summarization task
 - Constant, non-configurable `text_max_token_len` of 512 and `summary_max_token_len` of 128 as suggested by the original [T5](https://arxiv.org/abs/1910.10683) paper, limit the word-range of input and output text
 
-# Contributing
+# 5 Contributing
 
 Contributions are always welcome!
 
-A detailed guide about project specifics and in-depth architecture analysis is to be released soon.
+A detailed guide about project specifics and in-depth architecture analysis will be released soon.
 
-# Roadmap
+# 6 Roadmap
 
-- Avoid searching dataset initialization from happening before each search by either running both the text summarization and searching engines in a parallel setup or storing search dataset in a database.
-- Add configurable `text_max_token_len` and `summary_max_token_len` to increase text word-range flexibility
-- Fine-tune T5 Models with higher number of parameters such as `t5-large` and `t5-3B` for better results
+- Fixing Issues:
 
-# License
+  - Avoid searching dataset initialization from happening before each search by either running both the text summarization and searching engines in a parallel setup or storing search dataset in a database.
+  - Load model from checkpoint only once at the beginning of the program or just before the first summarization prompt
+  - Add configurable `text_max_token_len` and `summary_max_token_len` to increase text word-range flexibility.
 
-This project is licensed under the terms of the MIT license.
+- New Features:
+  - Fine-tune T5 Models with higher number of parameters such as `t5-large` and `t5-3B` for better results.
+  - Add other NLP models such as `BERT` and `ALBERT` for performance comparison.
+  - Add a web news scrapper to maintain a up-to-date version of latest most popular `n` news.
+
+# 7 Acknowledgements
+
+T5 Text Summarizer
+
+- [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683)
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+- [Hugging Face T5 API](https://huggingface.co/transformers/model_doc/t5.html)
+- [PyTorch Lightning Trainer](https://pytorch-lightning.readthedocs.io/en/latest/common/trainer.html)
+- [Text Summarization with T5](https://www.youtube.com/watch?v=KMyZUIraHio)
+
+Search Engine
+
+- [Building a Search Engine with C++](https://www.education-ecosystem.com/nikos_tsiougkranas/ljJg5-how-to-build-a-search-engine-in-c/yDd46-intro-how-to-build-a-search-engine-in-c/)
+
+# 8 License
+
+This project is licensed under the terms of the [MIT](https://en.wikipedia.org/wiki/MIT_License) license.

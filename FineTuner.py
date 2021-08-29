@@ -103,7 +103,7 @@ class FineTuner(object):
           
 
 
-    def summarize(self, text):
+    def summarize(self, text, max_summary_length=150):
         self.text_encoding = self.tokenizer(
             text,
             max_length=512,
@@ -117,7 +117,7 @@ class FineTuner(object):
         self.generated_ids = self.trainer_model.model.generate(
             input_ids=self.text_encoding["input_ids"],
             attention_mask=self.text_encoding["attention_mask"],
-            max_length=150,
+            max_length=max_summary_length,
             num_beams=2,
             repetition_penalty=1.0,
             length_penalty=1.0,
