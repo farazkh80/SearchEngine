@@ -1,18 +1,18 @@
 CC = g++
 default: searchengine clean
-searchengine: Searchengine.o Readinput.o Map.o Trienode.o Listnode.o Search.o Scorelist.o Maxheap.o
-	$(CC) -o searchengine Searchengine.o Readinput.o Map.o Trienode.o Listnode.o Search.o Scorelist.o Maxheap.o
-Scorelist.o: Scorelist.cpp inc/Scorelist.h
-	$(CC) -c src/Scorelist.cpp
-Maxheap.o: Maxheap.cpp inc/Maxheap.h
+searchengine: Searchengine.o src/Readinput.o src/Map.o src/Trienode.o src/Listnode.o src/Search.o src/Scorelist.o src/Maxheap.o
+	$(CC) -o searchengine Searchengine.o src/Readinput.o src/Map.o src/Trienode.o src/Listnode.o src/Search.o src/Scorelist.o src/Maxheap.o
+Scorelist.o: src/Scorelist.cpp inc/Scorelist.h
+	$(CC) -c Scorelist.cpp
+Maxheap.o: src/Maxheap.cpp inc/Maxheap.h
 	$(CC) -c src/Maxheap.cpp
-Search.o: Search.cpp inc/Search.h
+Search.o: src/Search.cpp inc/Search.h
 	$(CC) -c src/Search.cpp
-Listnode.o: Listnode.cpp inc/Listnode.h
+Listnode.o: src/Listnode.cpp inc/Listnode.h
 	$(CC) -c src/Listnode.cpp
-Trienode.o: Trienode.cpp inc/Trienode.h
+Trienode.o: src/Trienode.cpp inc/Trienode.h
 	$(CC) -c src/Trienode.cpp
-Map.o: Map.cpp inc/Map.h
+Map.o: Msrc/ap.cpp inc/Map.h
 	$(CC) -c src/Map.cpp
 Readinput.o: Readinput.cpp inc/Readinput.h
 	$(CC) -c src/Readinput.cpp
