@@ -13,6 +13,8 @@ from NewsSummaryModel import NewsSummaryModel
 from NewsSummaryDatasetModule import NewsSummaryDatasetModule
 from config.conf import config
 
+# Fine-tuner class to fine-tune the selected model for the summarization downstream task
+# or load the previously fine-tuned model from the checkpoint
 class FineTuner(object):
     def __init__(
         self,
@@ -28,6 +30,10 @@ class FineTuner(object):
         self.model_name = model_name
         self.tokenizer = T5Tokenizer.from_pretrained(self.model_name)
 
+    # function to fine-tune the selected model_name with the dataset file 
+    # provided by dataset_file_relative path, if not pre_tuned
+    # and save a checkpoint to the fine-tuned model if new_checkpoint_file_name is provided
+    # supports gpu fine-tunning if the torch.cuda is available
     def fit_and_tune(
         self,
         dataset_file_relative_path: str = config['fine_tune_dataset_path'],
@@ -40,6 +46,7 @@ class FineTuner(object):
         logger_dir_name: str = 'torch-runs',
         logger_file_name: str = 'news_summary',
         ):
+        # load from checkpoint if pre_tuned
         if self.pre_tuned:
           self.trainer_model = NewsSummaryModel.load_from_checkpoint(model_name=self.model_name,checkpoint_path=self.saved_checkpoint_file_name)
 
@@ -58,7 +65,8 @@ class FineTuner(object):
           self.batch_size=batch_size
           self.gpu_num = gpu_num
           self.tpu_num = tpu_num
-
+        
+          # define the data_module and model
           self.data_module = NewsSummaryDatasetModule(self.train_df, self.test_df, self.tokenizer, batch_size=self.batch_size)
           self.model = NewsSummaryModel(self.model_name)
 
@@ -72,7 +80,8 @@ class FineTuner(object):
           )
 
           self.logger = TensorBoardLogger(logger_dir_name, name=logger_file_name)
-
+        
+          # define the trainer based number of gpus or cpus
           if gpu_num > 0 and torch.cuda.is_available():
               self.trainer = Trainer(
                   logger=self.logger,
@@ -101,9 +110,8 @@ class FineTuner(object):
             )
             self.trainer_model.freeze()
 
-          
-
-
+    # Summarization function using the tokenizer and trainer generate function
+    # given a text and max_summary_length
     def summarize(self, text, max_summary_length=150):
         self.text_encoding = self.tokenizer(
             text,

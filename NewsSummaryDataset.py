@@ -4,6 +4,8 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer
 )
 
+# News Summary Dataset class to be used fot input and output
+# data access and tokenization
 class NewsSummaryDataset(Dataset):
 
     def __init__(
@@ -25,6 +27,7 @@ class NewsSummaryDataset(Dataset):
     def __getitem__(self, index: int):
         data_row = self.data.iloc[index]
 
+        # tokenize input
         text_encoding = self.tokenizer(
             data_row["text"],
             max_length = self.text_max_token_len,
@@ -35,6 +38,7 @@ class NewsSummaryDataset(Dataset):
             return_tensors="pt"
         )
 
+        # tokenize output
         summary_encoding = self.tokenizer(
             data_row["summary"],
             max_length = self.summary_max_token_len,

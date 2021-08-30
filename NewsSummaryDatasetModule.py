@@ -6,6 +6,9 @@ from transformers import (
     T5TokenizerFast as T5Tokenizer
 )
 
+# News Summary Dataset Module containing the main
+# train, test and validation dataloaders to be used
+# in model fine-tuning
 class NewsSummaryDatasetModule(pl.LightningDataModule):
 
     def __init__(
@@ -24,10 +27,11 @@ class NewsSummaryDatasetModule(pl.LightningDataModule):
 
         self.batch_size = batch_size
         self.tokenizer = tokenizer
-        self.test_max_token_len = test_max_token_len
-        self.summary_max_token_len = summary_max_token_len
+        self.test_max_token_len = test_max_token_len # used for News Summary Dataset config
+        self.summary_max_token_len = summary_max_token_len # used for News Summary Dataset config
 
     def setup(self, stage=None):
+        # create train dataset
         self.train_dataset = NewsSummaryDataset(
             self.train_df,
             self.tokenizer,
@@ -35,6 +39,7 @@ class NewsSummaryDatasetModule(pl.LightningDataModule):
             self.summary_max_token_len
         )
 
+        # create test dataset
         self.test_dataset = NewsSummaryDataset(
             self.test_df,
             self.tokenizer,

@@ -7,6 +7,7 @@ Maxheap::Maxheap(int k) : maxnumofscores(k), currnumofscores(0)
 	ids = (int*)malloc(maxnumofscores * sizeof(int));
 }
 
+// Search through max heap to find the minimal index
 int Maxheap::minindex(int low, int high)
 {
 	int min = -1;
@@ -22,6 +23,7 @@ int Maxheap::minindex(int low, int high)
 	return min;
 }
 
+// swap max heap scores when removing a node and inserting a node
 void Maxheap::swapscores(int index1, int index2)
 {
 	double temp = 0.0;
@@ -33,6 +35,7 @@ void Maxheap::swapscores(int index1, int index2)
 	ids[index2] = tempid;
 }
 
+// inserting a score
 void Maxheap::insert(double score, int id)
 {
 	int index;
@@ -58,6 +61,7 @@ void Maxheap::insert(double score, int id)
 	}
 }
 
+// return max child
 int Maxheap::Maxchild(int number1, int number2)
 {
 	if (number1 < currnumofscores && number2 < currnumofscores)
@@ -74,6 +78,7 @@ int Maxheap::Maxchild(int number1, int number2)
 	return -1;
 }
 
+// remove max heap
 double Maxheap::remove()
 {
 	int index = 0, Chosenchild;

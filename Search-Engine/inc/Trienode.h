@@ -33,8 +33,8 @@ class Trienode
         // and returning the number of documents that the word
         // has been found in
         void dsearchall(char* buffer,int curr);
-        //
-        //
+        // function for searching for the keywords
+        // in the trie and constcut a scorelist when found
         void search(char* word,int curr,Scorelist* scorelist);
 };
 
