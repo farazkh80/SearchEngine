@@ -6,7 +6,6 @@
 
 ![](https://img.shields.io/github/license/farazkh80/SearchEngine)
 ![](https://img.shields.io/github/last-commit/farazkh80/SearchEngine)
-![](https://img.shields.io/github/v/release/farazkh80/SearchEngine)
 ![](https://img.shields.io/github/stars/farazkh80/SearchEngine)
 
 </div>
